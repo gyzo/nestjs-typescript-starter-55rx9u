@@ -1,16 +1,20 @@
-
+import { Entity, Column } from 'typeorm';
+import { ContractId } from './contract-id';
 
 @Entity()
 export class Contract {
-  @Column({ primary: true, nullable: false, transformer: { from(value: string) => { return new ContractId(value); }}})
+  @Column({
+    type: 'varchar',
+    primary: true,
+    nullable: false,
+    transformer: {
+      from(value: string) {
+        return new ContractId(value);
+      },
+      to(contractId: ContractId) {
+        return contractId.toContractIdString();
+      },
+    },
+  })
   contractId: ContractId;
-
-}
-
-export class ContractId {
-  constructor(private readonly contractIdValue: string) {}
-
-  toString(): string {
-    return this.contractIdValue;
-  }
 }
