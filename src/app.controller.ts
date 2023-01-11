@@ -8,7 +8,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  async getHello(): Promise<Contract> {
+  async getHello(): Promise<ContractId> {
     const contractId = new ContractId('Test ID');
     const contract = new Contract();
 
@@ -18,6 +18,6 @@ export class AppController {
 
     const contractResult = await this.appService.getContract(contractId);
 
-    return contractResult;
+    return contractResult.contractId;
   }
 }
