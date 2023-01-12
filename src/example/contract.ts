@@ -4,9 +4,10 @@ import { ContractId } from './contract-id';
 @Entity()
 export class Contract {
   @Column({
-    type: 'varchar',
+    type: 'uuid',
     primary: true,
-    nullable: false,
+    nullable: true,
+    default: null,
     transformer: {
       from(value: string) {
         return new ContractId(value);
